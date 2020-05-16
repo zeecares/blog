@@ -1,6 +1,6 @@
 layout: page
 title: "About Me"
-permalink: /about/
+permalink: /aboutme/
 
 # 但这又有什么关系呢？
 ## 人生本是梦一场

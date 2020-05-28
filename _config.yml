@@ -25,23 +25,25 @@ show_excerpts: true # set to true to show excerpts on the homepage or false
 # Minima date format
 # refer to https://shopify.github.io/liquid/filters/date/ if you want to customize this
 minima:
+  #skin: solarized
   date_format: "%b %-d, %Y"
-
+#twitterusername: ZeeCares
+#githubusername: zeecares
   # generate social links in footer
   social_links:
     twitter: ZeeCares
-    github:  zeecares
+    github: zeecares
     # devto: jekyll
     # dribbble: jekyll
-     facebook: apache.wang.5
+    facebook: apache.wang.5
     # flickr:   jekyll
-     instagram: zeewang42
+    instagram: zeewang42
     # linkedin: jekyll
     # pinterest: jekyll
     # youtube: jekyll
-     youtube_channel: UCnxBt9CHbVIMFySBl0AZ4Tg
+    youtube_channel: UCnxBt9CHbVIMFySBl0AZ4Tg
     # youtube_channel_name: CloudCannon
-     telegram: wanger1984
+    telegram: wanger1984
     # googleplus: +jekyll
     # microdotblog: jekyll
     # keybase: jekyll
@@ -72,6 +74,8 @@ theme: minima
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
+# enable google analytics
+google_analytics: UA-167900064-1
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list

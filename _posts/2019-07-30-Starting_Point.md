@@ -1,6 +1,7 @@
 ---
 title: "Starting Point"
 date: 2019-07-30
+layout: post
 ---
 
 # 凡事总有开端

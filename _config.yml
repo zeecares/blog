@@ -16,8 +16,7 @@
 title: 子易赛博の空间
 email: wangzee@pm.me
 description: >- # this means to ignore newlines until "baseurl:"
-  Zee's personal blog. It may show the things that zee cared and caring about.
-  /n子易的个人博客。它记录Zee曾在乎过或正在在乎的事情。
+  A personal blog on things that Zee cared and still caring about.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://zeewang.ie" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: ZeeCares

@@ -1,6 +1,7 @@
 ---
 layout: page
 title: About
+title_zh: 关于
 permalink: /about/
 ---
 
@@ -42,10 +43,25 @@ function updateAboutPage(lang) {
     }
   });
   
-  // Update page title
-  const pageTitle = document.querySelector('.page-heading');
-  if (pageTitle) {
-    pageTitle.textContent = lang === 'zh' ? '关于' : 'About';
+  // Update page title spans
+  const titleEn = document.querySelector('.title-en');
+  const titleZh = document.querySelector('.title-zh');
+  
+  if (titleEn && titleZh) {
+    if (lang === 'zh') {
+      titleEn.style.display = 'none';
+      titleZh.style.display = 'inline';
+    } else {
+      titleEn.style.display = 'inline';
+      titleZh.style.display = 'none';
+    }
+  }
+  
+  // Update document title
+  if (lang === 'zh') {
+    document.title = '关于 | 子易赛博の空间';
+  } else {
+    document.title = 'About | Zee\'s Cyber Space';
   }
 }
 </script>

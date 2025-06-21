@@ -145,39 +145,38 @@ function setLanguage(lang, reload = true) {
 }
 
 function filterContentByLanguage(lang) {
-  // Filter posts on homepage
+  // Filter posts on homepage - only show posts in selected language
   const posts = document.querySelectorAll('.post-list li');
+  let visibleCount = 0;
+  
   posts.forEach(post => {
     const postLang = post.getAttribute('data-lang') || 'zh'; // Default to Chinese for existing posts
     if (postLang === lang) {
       post.style.display = 'block';
+      visibleCount++;
     } else {
-      // Check if there's a translation available
-      const hasTranslation = post.getAttribute('data-has-translation') === 'true';
-      if (hasTranslation) {
-        post.style.display = 'block';
-        // Could show translated version here
-      } else {
-        post.style.display = 'none';
-      }
+      post.style.display = 'none';
     }
   });
   
   // Show message if no posts in selected language
-  const visiblePosts = document.querySelectorAll('.post-list li[style="display: block"], .post-list li:not([style])');
-  const noPostsMsg = document.getElementById('no-posts-message');
-  if (visiblePosts.length === 0) {
-    if (!noPostsMsg) {
-      const msg = document.createElement('div');
-      msg.id = 'no-posts-message';
-      msg.className = 'no-posts-message';
-      msg.innerHTML = lang === 'en' ? 
-        'No posts available in English yet. <a href="#" onclick="setLanguage(\'zh\')">Switch to Chinese</a>' :
-        '暂无中文文章。<a href="#" onclick="setLanguage(\'en\')">切换到英文</a>';
-      document.querySelector('.post-list').after(msg);
+  const existingMsg = document.getElementById('no-posts-message');
+  if (existingMsg) {
+    existingMsg.remove();
+  }
+  
+  if (visibleCount === 0) {
+    const msg = document.createElement('div');
+    msg.id = 'no-posts-message';
+    msg.className = 'no-posts-message';
+    msg.innerHTML = lang === 'en' ? 
+      'No posts available in English yet. <a href="#" onclick="setLanguage(\'zh\')">Switch to Chinese</a>' :
+      '暂无中文文章。<a href="#" onclick="setLanguage(\'en\')">切换到英文</a>';
+    
+    const postList = document.querySelector('.post-list');
+    if (postList) {
+      postList.after(msg);
     }
-  } else if (noPostsMsg) {
-    noPostsMsg.remove();
   }
 }
 
@@ -186,9 +185,9 @@ function updatePageContent(lang) {
   const siteTitle = document.querySelector('.site-title');
   if (siteTitle) {
     if (lang === 'zh') {
-      siteTitle.textContent = '{{ site.title_zh }}';
+      siteTitle.textContent = '子易赛博の空间';
     } else {
-      siteTitle.textContent = '{{ site.title }}';
+      siteTitle.textContent = "Zee's Cyber Space";
     }
   }
   
@@ -196,10 +195,17 @@ function updatePageContent(lang) {
   const navLinks = document.querySelectorAll('.page-link');
   navLinks.forEach(link => {
     const href = link.getAttribute('href');
-    if (href === '/about/') {
-      link.textContent = lang === 'zh' ? '{{ site.data.ui.zh.about }}' : '{{ site.data.ui.en.about }}';
+    if (href === '/about/' || href === '/about') {
+      link.textContent = lang === 'zh' ? '关于' : 'About';
     }
   });
+  
+  // Update page heading if exists
+  const pageHeading = document.querySelector('.page-heading');
+  if (pageHeading && window.location.pathname === '/') {
+    // Don't show any page heading on homepage
+    pageHeading.style.display = 'none';
+  }
 }
 
 // Close dropdown when clicking outside

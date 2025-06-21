@@ -4,6 +4,58 @@ title: About
 permalink: /about/
 ---
 
-生于渤海湾大连，启智慧于王小波时代三部曲，肉身在爱尔兰都柏林
-致力于活在当下，并不断更新自我对*Be Here Now*的定义
-偶尔乱弹琴
+<div class="about-content">
+  <div class="lang-content" data-lang="en">
+    <p>Born in Dalian by Bohai Bay, enlightened by Wang Xiaobo's Times Trilogy, physically in Dublin, Ireland.</p>
+    <p>Dedicated to living in the present moment, constantly updating my understanding of <em>Be Here Now</em>.</p>
+    <p>Occasionally playing music.</p>
+  </div>
+  
+  <div class="lang-content" data-lang="zh">
+    <p>生于渤海湾大连，启智慧于王小波时代三部曲，肉身在爱尔兰都柏林</p>
+    <p>致力于活在当下，并不断更新自我对<em>Be Here Now</em>的定义</p>
+    <p>偶尔乱弹琴</p>
+  </div>
+</div>
+
+<script>
+// About page language switching
+document.addEventListener('DOMContentLoaded', function() {
+  const currentLang = localStorage.getItem('blog-language') || 'en';
+  updateAboutPage(currentLang);
+  
+  // Listen for language changes
+  window.addEventListener('storage', function(e) {
+    if (e.key === 'blog-language') {
+      updateAboutPage(e.newValue);
+    }
+  });
+});
+
+function updateAboutPage(lang) {
+  const contents = document.querySelectorAll('.lang-content');
+  contents.forEach(content => {
+    if (content.getAttribute('data-lang') === lang) {
+      content.style.display = 'block';
+    } else {
+      content.style.display = 'none';
+    }
+  });
+  
+  // Update page title
+  const pageTitle = document.querySelector('.page-heading');
+  if (pageTitle) {
+    pageTitle.textContent = lang === 'zh' ? '关于' : 'About';
+  }
+}
+</script>
+
+<style>
+.lang-content {
+  display: none;
+}
+
+.lang-content[data-lang="en"] {
+  display: block; /* Default to English */
+}
+</style>

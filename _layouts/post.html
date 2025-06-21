@@ -4,7 +4,12 @@ layout: default
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
+    <h1 class="post-title p-name" itemprop="name headline">
+      {{ page.title | escape }}
+      {%- if page.lang -%}
+        <span class="lang-indicator">{{ page.lang | upcase }}</span>
+      {%- endif -%}
+    </h1>
     <p class="post-meta">
       {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
       <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
@@ -23,7 +28,40 @@ layout: default
             <span class="p-author h-card" itemprop="name">{{ author }}</span></span>
             {%- if forloop.last == false %}, {% endif -%}
         {% endfor %}
-      {%- endif -%}</p>
+      {%- endif -%}
+      {%- if page.translated -%}
+        <span class="translation-badge">
+          {%- assign post_lang = page.lang | default: "zh" -%}
+          {{ site.data.ui[post_lang].translated }}
+        </span>
+      {%- endif -%}
+    </p>
+    
+    {%- comment -%} Show translation notice if post is translated {%- endcomment -%}
+    {%- if page.translated -%}
+      {%- assign post_lang = page.lang | default: "zh" -%}
+      <div class="translation-notice">
+        {{ site.data.ui[post_lang].translation_notice }}
+      </div>
+    {%- endif -%}
+    
+    {%- comment -%} Show link to other language version {%- endcomment -%}
+    {%- assign page_slug = page.url | split: "/" | last | split: "." | first -%}
+    {%- if site.data.languages.pairs[page_slug] -%}
+      {%- assign translation_slug = site.data.languages.pairs[page_slug] -%}
+      {%- for post in site.posts -%}
+        {%- assign post_slug = post.url | split: "/" | last | split: "." | first -%}
+        {%- if post_slug == translation_slug -%}
+          <div class="post-language-switch">
+            {%- assign post_lang = page.lang | default: "zh" -%}
+            {%- assign other_lang = post_lang == "en" ? "zh" : "en" -%}
+            <a href="{{ post.url | relative_url }}">
+              {{ site.data.ui[post_lang].view_in_language }} {{ site.lang_names[other_lang] }} →
+            </a>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">

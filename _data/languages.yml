@@ -1,0 +1,8 @@
+# Language pair mappings for translated posts
+# Format: filename_without_extension: paired_filename_without_extension
+
+pairs:
+  "2021-06-22-Metaphor.zh": "2021-06-22-Metaphor.en"
+  "2021-06-22-Metaphor.en": "2021-06-22-Metaphor.zh"
+  "2020-05-31-Joy.zh": "2020-05-31-Joy.en"
+  "2020-05-31-Joy.en": "2020-05-31-Joy.zh"

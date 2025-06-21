@@ -13,12 +13,22 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: 子易赛博の空间
+title: "Zee's Cyber Space"
+title_zh: "子易赛博の空间"
 author:
   name: Zee
   email: wangzee@pm.me
 description: >- # this means to ignore newlines until "baseurl:"
   A personal blog on things that Zee cared and still caring about.
+description_zh: >-
+  关于子易在意和仍在在意的事情的个人博客。
+
+# Language settings
+default_lang: en
+languages: ["en", "zh"]
+lang_names:
+  en: "English"
+  zh: "中文"
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://zeecares.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 show_excerpts: true # set to true to show excerpts on the homepage or false

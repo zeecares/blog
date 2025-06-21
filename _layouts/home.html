@@ -3,9 +3,13 @@ layout: default
 ---
 
 <div class="home">
-  {%- if page.title -%}
-    <h1 class="page-heading">{{ page.title }}</h1>
-  {%- endif -%}
+  <!-- Language Switcher -->
+  <div class="home-header">
+    {%- if page.title -%}
+      <h1 class="page-heading">{{ page.title }}</h1>
+    {%- endif -%}
+    {% include language-switcher.html %}
+  </div>
 
   {{ content }}
 
@@ -24,15 +28,42 @@ layout: default
     <ul class="post-list">
       {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
       {%- for post in posts -%}
-      <li>
-        <span class="post-meta">{{ post.date | date: date_format }}</span>
+      {%- assign post_lang = post.lang | default: "zh" -%}
+      {%- assign post_slug = post.url | split: "/" | last | split: "." | first -%}
+      <li data-lang="{{ post_lang }}" data-has-translation="{% if site.data.languages.pairs[post_slug] %}true{% else %}false{% endif %}">
+        <span class="post-meta">
+          {{ post.date | date: date_format }}
+          {%- if post.translated -%}
+            <span class="translation-badge">{{ site.data.ui[post_lang].translated }}</span>
+          {%- endif -%}
+        </span>
         <h3>
           <a class="post-link" href="{{ post.url | relative_url }}">
             {{ post.title | escape }}
           </a>
+          {%- if post.lang -%}
+            <span class="lang-indicator">{{ post.lang | upcase }}</span>
+          {%- endif -%}
         </h3>
         {%- if site.show_excerpts -%}
           {{ post.excerpt }}
+        {%- endif -%}
+        
+        {%- comment -%} Show translation link if available {%- endcomment -%}
+        {%- assign translation_key = post_slug -%}
+        {%- if site.data.languages.pairs[translation_key] -%}
+          {%- assign translation_slug = site.data.languages.pairs[translation_key] -%}
+          {%- for translation_post in site.posts -%}
+            {%- assign trans_slug = translation_post.url | split: "/" | last | split: "." | first -%}
+            {%- if trans_slug == translation_slug -%}
+              <div class="translation-link">
+                {%- assign other_lang = post_lang == "en" ? "zh" : "en" -%}
+                <a href="{{ translation_post.url | relative_url }}">
+                  {{ site.data.ui[post_lang].view_in_language }} {{ site.lang_names[other_lang] }}
+                </a>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
         {%- endif -%}
       </li>
       {%- endfor -%}

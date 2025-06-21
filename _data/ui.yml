@@ -1,0 +1,29 @@
+# UI translations for bilingual blog
+
+en:
+  home: "Home"
+  about: "About"
+  posts: "Posts"
+  recent_posts: "Recent Posts"
+  read_more: "Read more"
+  translation_notice: "This post was automatically translated from Chinese"
+  view_in_language: "View in"
+  original_language: "Original"
+  translated: "Translated"
+  posted_on: "Posted on"
+  switch_language: "Switch Language"
+  all_posts: "All Posts"
+  
+zh:
+  home: "首页"
+  about: "关于"
+  posts: "文章"
+  recent_posts: "最新文章"
+  read_more: "阅读更多"
+  translation_notice: "此文章从英文自动翻译"
+  view_in_language: "查看"
+  original_language: "原文"
+  translated: "译文"
+  posted_on: "发布于"
+  switch_language: "切换语言"
+  all_posts: "所有文章"

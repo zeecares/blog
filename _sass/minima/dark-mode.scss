@@ -1,0 +1,328 @@
+/* Dark Mode Styles with System Preference Detection */
+
+/* CSS Variables for theme colors */
+:root {
+  /* Light mode colors (default) */
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --border-color: #e1e4e8;
+  --link-color: #0066cc;
+  --link-hover-color: #004499;
+  --code-bg: #f6f8fa;
+  --blockquote-border: #dfe2e5;
+  --header-bg: #fafbfc;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --accent-color: #586069;
+  
+  /* Button colors */
+  --button-bg: #ffffff;
+  --button-border: #ddd;
+  --button-hover-bg: #f5f5f5;
+  --button-hover-border: #999;
+  
+  /* Language switcher colors */
+  --dropdown-bg: #ffffff;
+  --dropdown-border: #ddd;
+  --dropdown-shadow: rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode colors - activated by system preference */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #0d1117;
+    --text-color: #e6edf3;
+    --border-color: #30363d;
+    --link-color: #58a6ff;
+    --link-hover-color: #79c0ff;
+    --code-bg: #161b22;
+    --blockquote-border: #30363d;
+    --header-bg: #161b22;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --accent-color: #8b949e;
+    
+    /* Button colors */
+    --button-bg: #21262d;
+    --button-border: #30363d;
+    --button-hover-bg: #30363d;
+    --button-hover-border: #8b949e;
+    
+    /* Language switcher colors */
+    --dropdown-bg: #21262d;
+    --dropdown-border: #30363d;
+    --dropdown-shadow: rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Manual dark mode override - when user explicitly chooses dark mode */
+[data-theme="dark"] {
+  --bg-color: #0d1117;
+  --text-color: #e6edf3;
+  --border-color: #30363d;
+  --link-color: #58a6ff;
+  --link-hover-color: #79c0ff;
+  --code-bg: #161b22;
+  --blockquote-border: #30363d;
+  --header-bg: #161b22;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --accent-color: #8b949e;
+  
+  --button-bg: #21262d;
+  --button-border: #30363d;
+  --button-hover-bg: #30363d;
+  --button-hover-border: #8b949e;
+  
+  --dropdown-bg: #21262d;
+  --dropdown-border: #30363d;
+  --dropdown-shadow: rgba(0, 0, 0, 0.3);
+}
+
+/* Manual light mode override */
+[data-theme="light"] {
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --border-color: #e1e4e8;
+  --link-color: #0066cc;
+  --link-hover-color: #004499;
+  --code-bg: #f6f8fa;
+  --blockquote-border: #dfe2e5;
+  --header-bg: #fafbfc;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --accent-color: #586069;
+  
+  --button-bg: #ffffff;
+  --button-border: #ddd;
+  --button-hover-bg: #f5f5f5;
+  --button-hover-border: #999;
+  
+  --dropdown-bg: #ffffff;
+  --dropdown-border: #ddd;
+  --dropdown-shadow: rgba(0, 0, 0, 0.1);
+}
+
+/* Apply theme colors to elements */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Headers */
+.site-header {
+  background-color: var(--header-bg);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.site-title,
+.site-title:visited {
+  color: var(--text-color);
+}
+
+.site-title:hover {
+  color: var(--link-color);
+}
+
+.site-nav .page-link {
+  color: var(--text-color);
+}
+
+.site-nav .page-link:hover {
+  color: var(--link-color);
+}
+
+/* Content */
+.post-title,
+.page-heading {
+  color: var(--text-color);
+}
+
+.post-content h1,
+.post-content h2,
+.post-content h3,
+.post-content h4,
+.post-content h5,
+.post-content h6 {
+  color: var(--text-color);
+}
+
+/* Links */
+a {
+  color: var(--link-color);
+}
+
+a:hover {
+  color: var(--link-hover-color);
+}
+
+.post-link {
+  color: var(--text-color);
+}
+
+.post-link:hover {
+  color: var(--link-color);
+}
+
+/* Code blocks */
+pre,
+code {
+  background-color: var(--code-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+.highlight {
+  background-color: var(--code-bg);
+}
+
+/* Blockquotes */
+blockquote {
+  border-left: 4px solid var(--blockquote-border);
+  color: var(--accent-color);
+}
+
+/* Tables */
+table {
+  border: 1px solid var(--border-color);
+}
+
+table th,
+table td {
+  border: 1px solid var(--border-color);
+}
+
+table th {
+  background-color: var(--header-bg);
+}
+
+/* Forms */
+input,
+textarea,
+select {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--link-color);
+}
+
+/* Footer */
+.site-footer {
+  background-color: var(--header-bg);
+  border-top: 1px solid var(--border-color);
+  color: var(--accent-color);
+}
+
+.footer-heading {
+  color: var(--text-color);
+}
+
+/* Post meta */
+.post-meta {
+  color: var(--accent-color);
+}
+
+/* Pagination */
+.pagination a {
+  color: var(--link-color);
+  border: 1px solid var(--border-color);
+}
+
+.pagination a:hover {
+  background-color: var(--button-hover-bg);
+  border-color: var(--button-hover-border);
+}
+
+/* Social media links */
+.social-media-list a {
+  color: var(--accent-color);
+}
+
+.social-media-list a:hover {
+  color: var(--link-color);
+}
+
+/* Dark mode toggle button */
+.theme-toggle {
+  background: var(--button-bg);
+  border: 1px solid var(--button-border);
+  color: var(--text-color);
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  margin-left: 10px;
+}
+
+.theme-toggle:hover {
+  background-color: var(--button-hover-bg);
+  border-color: var(--button-hover-border);
+}
+
+/* Update existing language switcher colors */
+.lang-button {
+  background: var(--button-bg);
+  border: 1px solid var(--button-border);
+  color: var(--text-color);
+}
+
+.lang-button:hover {
+  border-color: var(--button-hover-border);
+  background-color: var(--button-hover-bg);
+}
+
+.lang-dropdown {
+  background: var(--dropdown-bg);
+  border: 1px solid var(--dropdown-border);
+  box-shadow: 0 2px 8px var(--dropdown-shadow);
+}
+
+.lang-option {
+  color: var(--text-color);
+}
+
+.lang-option:hover {
+  background-color: var(--button-hover-bg);
+}
+
+/* Update bilingual-specific styles for dark mode */
+.translation-badge {
+  background-color: var(--code-bg);
+  color: var(--accent-color);
+  border: 1px solid var(--border-color);
+}
+
+.translation-notice {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+}
+
+.post-language-switch {
+  background-color: var(--header-bg);
+  border: 1px solid var(--border-color);
+}
+
+.translation-link a {
+  color: var(--link-color);
+  border: 1px solid var(--border-color);
+}
+
+.translation-link a:hover {
+  background-color: var(--button-hover-bg);
+  border-color: var(--button-hover-border);
+}
+
+.lang-indicator {
+  background-color: var(--code-bg);
+  color: var(--accent-color);
+  border: 1px solid var(--border-color);
+}
+
+/* Smooth transitions for theme changes */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}

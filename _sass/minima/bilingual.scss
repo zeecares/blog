@@ -12,6 +12,23 @@
   margin: 0;
 }
 
+/* No posts message */
+.no-posts-message {
+  text-align: center;
+  padding: 20px;
+  color: var(--text-color-light, #666);
+  font-style: italic;
+  background-color: var(--bg-color-light, #f8f9fa);
+  border: 1px solid var(--border-color, #e9ecef);
+  border-radius: 4px;
+  margin: 20px 0;
+}
+
+.no-posts-message a {
+  color: var(--link-color, #0066cc);
+  text-decoration: underline;
+}
+
 /* Language indicators and badges */
 .lang-indicator {
   font-size: 0.7em;

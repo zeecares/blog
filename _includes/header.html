@@ -24,6 +24,31 @@
             <a class="page-link" href="{{ my_page.url | relative_url }}">{{ my_page.title | escape }}</a>
             {%- endif -%}
           {%- endfor -%}
+          
+          <!-- Language Switcher and Theme Toggle in Header -->
+          <div class="header-controls">
+            <div class="language-switcher">
+              <div class="language-toggle">
+                <button id="lang-btn" class="lang-button" onclick="toggleLanguage()">
+                  <span id="current-lang">🌐 EN</span>
+                  <span class="lang-arrow">▼</span>
+                </button>
+                <div id="lang-dropdown" class="lang-dropdown">
+                  <a href="#" onclick="setLanguage('en')" class="lang-option" data-lang="en">
+                    🇺🇸 English
+                  </a>
+                  <a href="#" onclick="setLanguage('zh')" class="lang-option" data-lang="zh">
+                    🇨🇳 中文
+                  </a>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Dark Mode Toggle -->
+            <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode">
+              <span id="theme-icon">🌙</span>
+            </button>
+          </div>
         </div>
       </nav>
     {%- endif -%}

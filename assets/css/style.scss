@@ -6,4 +6,5 @@
   "minima/skins/{{ site.minima.skin | default: 'classic' }}",
   "minima/initialize",
   "minima/bilingual",
-  "minima/dark-mode";
+  "minima/dark-mode",
+  "minima/header-controls";

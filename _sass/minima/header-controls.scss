@@ -1,0 +1,229 @@
+// Header Controls Styles
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.language-switcher {
+  position: relative;
+  display: inline-block;
+}
+
+.lang-button {
+  background: none;
+  border: 1px solid var(--border-color, #ddd);
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.2s ease;
+  color: var(--text-color, #333);
+}
+
+.lang-button:hover {
+  border-color: var(--border-color-hover, #999);
+  background-color: var(--hover-bg, #f5f5f5);
+}
+
+.lang-arrow {
+  font-size: 10px;
+  transition: transform 0.2s ease;
+}
+
+.lang-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: var(--bg-color, white);
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  z-index: 1000;
+  min-width: 120px;
+}
+
+.lang-option {
+  display: block;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: var(--text-color, #333);
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.lang-option:hover {
+  background-color: var(--hover-bg, #f5f5f5);
+  text-decoration: none;
+}
+
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--border-color, #ddd);
+  padding: 6px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+}
+
+.theme-toggle:hover {
+  border-color: var(--border-color-hover, #999);
+  background-color: var(--hover-bg, #f5f5f5);
+}
+
+// Dark mode support
+[data-theme="dark"] {
+  .lang-button,
+  .theme-toggle {
+    border-color: #555;
+    color: #e0e0e0;
+  }
+  
+  .lang-button:hover,
+  .theme-toggle:hover {
+    border-color: #777;
+    background-color: #333;
+  }
+  
+  .lang-dropdown {
+    background: #2d2d2d;
+    border-color: #555;
+  }
+  
+  .lang-option {
+    color: #e0e0e0;
+  }
+  
+  .lang-option:hover {
+    background-color: #333;
+  }
+}
+
+// Responsive design
+@media (max-width: 600px) {
+  .header-controls {
+    margin: 10px 0;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .lang-dropdown {
+    right: auto;
+    left: 0;
+  }
+  
+  .theme-toggle {
+    order: -1; /* Put theme toggle first on mobile */
+  }
+  
+  .lang-button,
+  .theme-toggle {
+    font-size: 12px;
+    padding: 4px 8px;
+    height: 32px;
+  }
+  
+  .theme-toggle {
+    width: 32px;
+  }
+}
+
+// Integration with existing navigation
+.site-nav .trigger {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+// Ensure header controls are on the right
+.site-nav .trigger .header-controls {
+  margin-left: auto;
+}
+
+// Responsive navigation adjustments
+@media screen and (max-width: 600px) {
+  .site-nav {
+    .menu-icon {
+      display: block;
+    }
+    
+    .trigger {
+      position: absolute;
+      top: 9px;
+      right: 15px;
+      background-color: var(--bg-color, #fdfdfd);
+      border: 1px solid var(--border-color, #e8e8e8);
+      border-radius: 5px;
+      text-align: right;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0;
+      display: none;
+      
+      &.show {
+        display: flex;
+      }
+      
+      .page-link {
+        display: block;
+        padding: 5px 10px;
+        margin-left: 0;
+        color: var(--text-color, #111);
+        
+        &:not(:last-child) {
+          border-bottom: 1px solid var(--border-color, #e8e8e8);
+        }
+      }
+    }
+    
+    input ~ .trigger {
+      clear: both;
+      display: none;
+    }
+    
+    input:checked ~ .trigger {
+      display: flex;
+      padding-bottom: 5px;
+    }
+    
+    .header-controls {
+      margin: 5px 10px 5px 0;
+      border-top: 1px solid var(--border-color, #e8e8e8);
+      padding-top: 5px;
+      gap: 8px;
+    }
+  }
+  
+  .lang-dropdown {
+    right: auto;
+    left: 0;
+  }
+  
+  .theme-toggle {
+    order: -1;
+  }
+  
+  .lang-button,
+  .theme-toggle {
+    font-size: 12px;
+    padding: 4px 8px;
+    height: 32px;
+  }
+  
+  .theme-toggle {
+    width: 32px;
+  }
+}

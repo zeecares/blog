@@ -1,68 +1,20 @@
-{% comment %}
-Related Posts Component - Simplified for GitHub Pages compatibility
-{% endcomment %}
-
-{% assign related_enabled = site.related_posts.enabled | default: true %}
-{% if related_enabled %}
+{% comment %}Related Posts Component - Minimal Version{% endcomment %}
 
 {% assign current_lang = page.lang | default: "zh" %}
-{% assign max_posts = site.related_posts.max_posts | default: 5 %}
-{% assign related_found = site.posts | where: "lang", current_lang | where_exp: "post", "post.url != page.url" | slice: 0, max_posts %}
+{% assign related_posts = site.posts | where: "lang", current_lang | limit: 5 %}
 
-{% if related_found.size > 0 %}
+{% if related_posts.size > 1 %}
 <section class="related-posts">
-  <h3 class="related-posts-title">
-    {% if current_lang == "en" %}Related Posts{% else %}相关文章{% endif %}
-  </h3>
-  
-  <div class="related-posts-grid">
-    {% for post in related_found %}
-      <article class="related-post-item">
-        <div class="related-post-content">
-          <h4 class="related-post-title">
-            <a href="{{ post.url | relative_url }}" class="related-post-link">
-              {{ post.title | escape }}
-            </a>
-          </h4>
-          
-          <div class="related-post-meta">
-            {% assign date_format = site.minima.date_format | default: "%b %-d, %Y" %}
-            <time class="related-post-date" datetime="{{ post.date | date_to_xmlschema }}">
-              {{ post.date | date: date_format }}
-            </time>
-            
-            {% if post.lang %}
-              <span class="related-post-lang">{{ post.lang | upcase }}</span>
-            {% endif %}
-          </div>
-          
-          {% if post.excerpt %}
-            <div class="related-post-excerpt">
-              {{ post.excerpt | strip_html | truncatewords: 20 }}
-            </div>
-          {% endif %}
-        </div>
-      </article>
+  <h3>{% if current_lang == "en" %}Related Posts{% else %}相关文章{% endif %}</h3>
+  <ul>
+    {% for post in related_posts %}
+      {% unless post.url == page.url %}
+      <li>
+        <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+        <span class="post-date">{{ post.date | date: "%b %d, %Y" }}</span>
+      </li>
+      {% endunless %}
     {% endfor %}
-  </div>
+  </ul>
 </section>
-{% else %}
-  {% assign fallback_enabled = site.related_posts.fallback_enabled | default: true %}
-  {% if fallback_enabled %}
-    <section class="related-posts related-posts-fallback">
-      <h3 class="related-posts-title">
-        {% if current_lang == "en" %}More Posts{% else %}更多文章{% endif %}
-      </h3>
-      <p class="related-posts-fallback-text">
-        {% if current_lang == "en" %}No related posts found. Explore more content below.{% else %}没有找到相关文章。请浏览下面的更多内容。{% endif %}
-      </p>
-      <div class="related-posts-fallback-actions">
-        <a href="{{ '/' | relative_url }}" class="related-fallback-link">
-          {% if current_lang == "en" %}Browse All Posts{% else %}浏览所有文章{% endif %}
-        </a>
-      </div>
-    </section>
-  {% endif %}
-{% endif %}
-
 {% endif %}

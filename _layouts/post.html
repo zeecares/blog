@@ -54,7 +54,11 @@ layout: default
         {%- if post_slug == translation_slug -%}
           <div class="post-language-switch">
             {%- assign post_lang = page.lang | default: "zh" -%}
-            {%- assign other_lang = post_lang == "en" ? "zh" : "en" -%}
+            {%- if post_lang == "en" -%}
+              {%- assign other_lang = "zh" -%}
+            {%- else -%}
+              {%- assign other_lang = "en" -%}
+            {%- endif -%}
             <a href="{{ post.url | relative_url }}">
               {{ site.data.ui[post_lang].view_in_language }} {{ site.lang_names[other_lang] }} →
             </a>

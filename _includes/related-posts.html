@@ -1,74 +1,22 @@
 {% comment %}
-Related Posts Component for Bilingual Jekyll Blog
-Finds related posts based on tags, categories, and language
+Related Posts Component - Simplified for GitHub Pages compatibility
 {% endcomment %}
 
-{% comment %} Check if related posts are enabled {% endcomment %}
 {% assign related_enabled = site.related_posts.enabled | default: true %}
 {% if related_enabled %}
 
 {% assign current_lang = page.lang | default: "zh" %}
-{% assign related_posts = site.posts | where: "lang", current_lang %}
-{% assign related_found = "" | split: "" %}
 {% assign max_posts = site.related_posts.max_posts | default: 5 %}
+{% assign related_found = site.posts | where: "lang", current_lang | where_exp: "post", "post.url != page.url" | slice: 0, max_posts %}
 
-{% comment %} First, try to find posts with matching tags {% endcomment %}
-{% if page.tags.size > 0 %}
-  {% for post in related_posts %}
-    {% if post.url != page.url %}
-      {% assign common_tags = 0 %}
-      {% for tag in post.tags %}
-        {% if page.tags contains tag %}
-          {% assign common_tags = common_tags | plus: 1 %}
-        {% endif %}
-      {% endfor %}
-      {% if common_tags > 0 %}
-        {% assign related_found = related_found | push: post %}
-      {% endif %}
-    {% endif %}
-  {% endfor %}
-{% endif %}
-
-{% comment %} If not enough found by tags, try categories {% endcomment %}
-{% if related_found.size < 3 and page.categories.size > 0 %}
-  {% for post in related_posts %}
-    {% if post.url != page.url and related_found contains post == false %}
-      {% assign common_categories = 0 %}
-      {% for category in post.categories %}
-        {% if page.categories contains category %}
-          {% assign common_categories = common_categories | plus: 1 %}
-        {% endif %}
-      {% endfor %}
-      {% if common_categories > 0 %}
-        {% assign related_found = related_found | push: post %}
-      {% endif %}
-    {% endif %}
-  {% endfor %}
-{% endif %}
-
-{% comment %} If still not enough, add recent posts from same language {% endcomment %}
-{% if related_found.size < 3 %}
-  {% for post in related_posts %}
-    {% if post.url != page.url and related_found contains post == false %}
-      {% assign related_found = related_found | push: post %}
-      {% if related_found.size >= max_posts %}
-        {% break %}
-      {% endif %}
-    {% endif %}
-  {% endfor %}
-{% endif %}
-
-{% comment %} Sort by relevance and date, limit to configured max {% endcomment %}
-{% assign final_related = related_found | slice: 0, max_posts %}
-
-{% if final_related.size > 0 %}
+{% if related_found.size > 0 %}
 <section class="related-posts">
   <h3 class="related-posts-title">
-    {{ site.data.ui[current_lang].related_posts }}
+    {% if current_lang == "en" %}Related Posts{% else %}相关文章{% endif %}
   </h3>
   
   <div class="related-posts-grid">
-    {% for post in final_related %}
+    {% for post in related_found %}
       <article class="related-post-item">
         <div class="related-post-content">
           <h4 class="related-post-title">
@@ -88,29 +36,10 @@ Finds related posts based on tags, categories, and language
             {% endif %}
           </div>
           
-          {% comment %} Show excerpt if available {% endcomment %}
           {% if post.excerpt %}
             <div class="related-post-excerpt">
               {{ post.excerpt | strip_html | truncatewords: 20 }}
             </div>
-          {% endif %}
-          
-          {% comment %} Show common tags {% endcomment %}
-          {% if page.tags.size > 0 and post.tags.size > 0 %}
-            {% assign common_tags_list = "" | split: "" %}
-            {% for tag in post.tags %}
-              {% if page.tags contains tag %}
-                {% assign common_tags_list = common_tags_list | push: tag %}
-              {% endif %}
-            {% endfor %}
-            
-            {% if common_tags_list.size > 0 %}
-              <div class="related-post-tags">
-                {% for tag in common_tags_list limit: 3 %}
-                  <span class="related-post-tag">{{ tag }}</span>
-                {% endfor %}
-              </div>
-            {% endif %}
           {% endif %}
         </div>
       </article>
@@ -118,30 +47,22 @@ Finds related posts based on tags, categories, and language
   </div>
 </section>
 {% else %}
-  {% comment %} Fallback when no related posts found {% endcomment %}
   {% assign fallback_enabled = site.related_posts.fallback_enabled | default: true %}
   {% if fallback_enabled %}
     <section class="related-posts related-posts-fallback">
       <h3 class="related-posts-title">
-        {{ site.data.ui[current_lang].more_posts }}
+        {% if current_lang == "en" %}More Posts{% else %}更多文章{% endif %}
       </h3>
       <p class="related-posts-fallback-text">
-        {{ site.data.ui[current_lang].no_related_posts }}
+        {% if current_lang == "en" %}No related posts found. Explore more content below.{% else %}没有找到相关文章。请浏览下面的更多内容。{% endif %}
       </p>
       <div class="related-posts-fallback-actions">
         <a href="{{ '/' | relative_url }}" class="related-fallback-link">
-          {{ site.data.ui[current_lang].browse_all_posts }}
-        </a>
-        {% if current_lang == "en" %}
-          {% assign other_lang = "zh" %}
-        {% else %}
-          {% assign other_lang = "en" %}
-        {% endif %}
-        <a href="{{ '/' | relative_url }}?lang={{ other_lang }}" class="related-fallback-link">
-          {{ site.data.ui[current_lang].view_posts_in }} {{ site.lang_names[other_lang] }}
+          {% if current_lang == "en" %}Browse All Posts{% else %}浏览所有文章{% endif %}
         </a>
       </div>
     </section>
   {% endif %}
 {% endif %}
+
 {% endif %}

@@ -1,34 +1,32 @@
-// Search functionality styles for bilingual Jekyll blog
+// Simple search styles
 
 .search-container {
   max-width: 800px;
   margin: 0 auto;
-  padding: $spacing-unit / 2;
+  padding: 20px;
 }
 
 .search-form {
   position: relative;
-  margin-bottom: $spacing-unit;
+  margin-bottom: 20px;
   
   #search-input {
     width: 100%;
     padding: 12px 50px 12px 16px;
     font-size: 16px;
-    border: 2px solid $grey-color-light;
+    border: 2px solid #ddd;
     border-radius: 8px;
-    background-color: $background-color;
-    color: $text-color;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    font-family: $base-font-family;
+    background-color: white;
+    color: #333;
+    transition: border-color 0.2s ease;
     
     &:focus {
       outline: none;
-      border-color: $brand-color;
-      box-shadow: 0 0 0 3px rgba($brand-color, 0.1);
+      border-color: #0066cc;
     }
     
     &::placeholder {
-      color: $grey-color;
+      color: #999;
     }
   }
   
@@ -41,267 +39,165 @@
     border: none;
     cursor: pointer;
     padding: 4px;
-    color: $grey-color;
-    transition: color 0.2s ease;
+    color: #999;
     
     &:hover {
-      color: $brand-color;
-    }
-    
-    &:focus {
-      outline: 2px solid $brand-color;
-      outline-offset: 2px;
-      border-radius: 2px;
-    }
-    
-    svg {
-      width: 20px;
-      height: 20px;
+      color: #0066cc;
     }
   }
 }
 
 .search-filters {
-  margin-bottom: $spacing-unit;
+  margin-bottom: 20px;
   
   .filter-label {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: $small-font-size;
-    color: $grey-color-dark;
+    font-size: 14px;
+    color: #666;
     cursor: pointer;
-    user-select: none;
-    
-    input[type="checkbox"] {
-      margin: 0;
-      cursor: pointer;
-    }
   }
-}
-
-.search-results {
-  min-height: 200px;
 }
 
 .search-welcome {
   text-align: center;
-  padding: $spacing-unit * 2;
-  color: $grey-color-dark;
+  padding: 40px 20px;
+  color: #666;
   
   h3 {
-    margin-bottom: $spacing-unit / 2;
-    color: $text-color;
-  }
-  
-  p {
-    margin: 0;
-    font-size: $base-font-size;
+    margin-bottom: 10px;
+    color: #333;
   }
 }
 
 .search-results-header {
-  margin-bottom: $spacing-unit;
-  border-bottom: 1px solid $grey-color-light;
-  padding-bottom: $spacing-unit / 2;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
   
   h3 {
-    margin: 0 0 $spacing-unit / 4 0;
-    font-size: $base-font-size * 1.5;
-    color: $text-color;
+    margin: 0 0 5px 0;
+    color: #333;
   }
   
   .results-count {
     margin: 0;
-    font-size: $small-font-size;
-    color: $grey-color-dark;
+    font-size: 14px;
+    color: #666;
   }
 }
 
-.search-results-list {
-  .search-result-item {
-    margin-bottom: $spacing-unit * 1.5;
-    padding-bottom: $spacing-unit;
-    border-bottom: 1px solid $grey-color-light;
+.search-result-item {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.search-result-title {
+  margin: 0 0 5px 0;
+  font-size: 18px;
+  
+  .search-result-link {
+    color: #0066cc;
+    text-decoration: none;
     
-    &:last-child {
-      border-bottom: none;
-      margin-bottom: 0;
+    &:hover {
+      text-decoration: underline;
     }
   }
   
-  .search-result-header {
-    margin-bottom: $spacing-unit / 2;
-    
-    .search-result-title {
-      margin: 0 0 $spacing-unit / 4 0;
-      font-size: $base-font-size * 1.25;
-      line-height: $base-line-height * 0.9;
-      
-      .search-result-link {
-        color: $brand-color;
-        text-decoration: none;
-        
-        &:hover {
-          text-decoration: underline;
-        }
-      }
-      
-      .lang-indicator {
-        display: inline-block;
-        margin-left: 8px;
-        padding: 2px 6px;
-        background-color: $grey-color-light;
-        color: $grey-color-dark;
-        font-size: $small-font-size * 0.8;
-        border-radius: 3px;
-        font-weight: 500;
-        vertical-align: middle;
-      }
-    }
-    
-    .search-result-date {
-      font-size: $small-font-size;
-      color: $grey-color;
-    }
+  .lang-indicator {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 2px 6px;
+    background-color: #f0f0f0;
+    color: #666;
+    font-size: 11px;
+    border-radius: 3px;
+    font-weight: 500;
   }
-  
-  .search-result-excerpt {
-    color: $grey-color-dark;
-    line-height: $base-line-height;
-    font-size: $base-font-size * 0.95;
-    
-    mark {
-      background-color: rgba($brand-color, 0.2);
-      padding: 1px 2px;
-      border-radius: 2px;
-      color: inherit;
-    }
-  }
+}
+
+.search-result-date {
+  font-size: 14px;
+  color: #999;
+  margin-bottom: 8px;
+}
+
+.search-result-excerpt {
+  color: #666;
+  line-height: 1.5;
+  font-size: 14px;
 }
 
 .search-no-results {
   text-align: center;
-  padding: $spacing-unit * 2;
+  padding: 40px 20px;
   
   h3 {
-    margin-bottom: $spacing-unit / 2;
-    color: $text-color;
+    margin-bottom: 10px;
+    color: #333;
   }
   
   p {
     margin: 0;
-    color: $grey-color-dark;
+    color: #666;
   }
 }
 
-// Dark mode support
-[data-theme="dark"] {
-  .search-form {
-    #search-input {
-      background-color: var(--background-color);
-      color: var(--text-color);
-      border-color: var(--grey-color-light);
-      
-      &:focus {
-        border-color: var(--brand-color);
-        box-shadow: 0 0 0 3px rgba(var(--brand-color-rgb), 0.1);
-      }
-      
-      &::placeholder {
-        color: var(--grey-color);
-      }
+// Related posts styles
+.related-posts {
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px solid #eee;
+  
+  h3 {
+    margin-bottom: 15px;
+    color: #333;
+    font-size: 18px;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  li {
+    margin-bottom: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f5f5f5;
+    
+    &:last-child {
+      border-bottom: none;
     }
     
-    #search-button {
-      color: var(--grey-color);
+    a {
+      color: #0066cc;
+      text-decoration: none;
+      font-weight: 500;
       
       &:hover {
-        color: var(--brand-color);
-      }
-    }
-  }
-  
-  .search-filters .filter-label {
-    color: var(--grey-color-dark);
-  }
-  
-  .search-welcome {
-    color: var(--grey-color-dark);
-    
-    h3 {
-      color: var(--text-color);
-    }
-  }
-  
-  .search-results-header {
-    border-bottom-color: var(--grey-color-light);
-    
-    h3 {
-      color: var(--text-color);
-    }
-    
-    .results-count {
-      color: var(--grey-color-dark);
-    }
-  }
-  
-  .search-results-list {
-    .search-result-item {
-      border-bottom-color: var(--grey-color-light);
-    }
-    
-    .search-result-title {
-      .search-result-link {
-        color: var(--brand-color);
-      }
-      
-      .lang-indicator {
-        background-color: var(--grey-color-light);
-        color: var(--grey-color-dark);
+        text-decoration: underline;
       }
     }
     
-    .search-result-date {
-      color: var(--grey-color);
+    .post-date {
+      font-size: 12px;
+      color: #999;
+      margin-left: 10px;
     }
     
-    .search-result-excerpt {
-      color: var(--grey-color-dark);
-      
-      mark {
-        background-color: rgba(var(--brand-color-rgb), 0.2);
-      }
+    .common-tags {
+      font-size: 11px;
+      color: #666;
+      margin-left: 10px;
+      font-style: italic;
     }
-  }
-  
-  .search-no-results {
-    h3 {
-      color: var(--text-color);
-    }
-    
-    p {
-      color: var(--grey-color-dark);
-    }
-  }
-}
-
-// Responsive design
-@media screen and (max-width: 600px) {
-  .search-container {
-    padding: $spacing-unit / 4;
-  }
-  
-  .search-form #search-input {
-    font-size: 16px; // Prevent zoom on iOS
-    padding: 12px 40px 12px 12px;
-  }
-  
-  .search-results-header h3 {
-    font-size: $base-font-size * 1.25;
-  }
-  
-  .search-result-title {
-    font-size: $base-font-size * 1.1 !important;
   }
 }

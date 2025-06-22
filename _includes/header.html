@@ -25,22 +25,21 @@
             {%- endif -%}
           {%- endfor -%}
           
+          <!-- Search link -->
+          <a class="page-link search-link" href="{{ '/search/' | relative_url }}">
+            <span class="search-text" data-en="Search" data-zh="搜索">Search</span>
+          </a>
+          
           <!-- Language Switcher and Theme Toggle in Header -->
           <div class="header-controls">
             <div class="language-switcher">
-              <div class="language-toggle">
-                <button id="lang-btn" class="lang-button" onclick="toggleLanguage()">
-                  <span id="current-lang">🌐 EN</span>
-                  <span class="lang-arrow">▼</span>
-                </button>
-                <div id="lang-dropdown" class="lang-dropdown">
-                  <a href="#" onclick="setLanguage('en')" class="lang-option" data-lang="en">
-                    🇺🇸 English
-                  </a>
-                  <a href="#" onclick="setLanguage('zh')" class="lang-option" data-lang="zh">
-                    🇨🇳 中文
-                  </a>
-                </div>
+              <button id="lang-btn" class="lang-button" onclick="toggleLanguage()">
+                <span id="current-lang">EN</span>
+                <span class="lang-arrow">▼</span>
+              </button>
+              <div id="lang-dropdown" class="lang-dropdown">
+                <a href="#" onclick="setLanguage('en')" class="lang-option" data-lang="en">English</a>
+                <a href="#" onclick="setLanguage('zh')" class="lang-option" data-lang="zh">中文</a>
               </div>
             </div>
             

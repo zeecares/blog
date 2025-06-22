@@ -1,14 +1,11 @@
-// Header Controls JavaScript - Language and Theme functionality
+// Modern Header Controls - Minimal Language and Theme Toggle
 (function() {
   'use strict';
 
-  // Language switching functionality
   let currentLang = localStorage.getItem('blog-language') || 'en';
-
-  // Theme management with system preference detection
   let currentTheme = localStorage.getItem('blog-theme') || 'auto';
 
-  // Initialize language and theme on page load
+  // Initialize on page load
   document.addEventListener('DOMContentLoaded', function() {
     setLanguage(currentLang, false);
     initializeTheme();
@@ -17,13 +14,12 @@
   // Theme initialization
   function initializeTheme() {
     if (currentTheme === 'auto') {
-      // Use system preference
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       applyTheme(prefersDark ? 'dark' : 'light', false);
-      updateThemeIcon('auto');
+      updateThemeIcon();
     } else {
       applyTheme(currentTheme, false);
-      updateThemeIcon(currentTheme);
+      updateThemeIcon();
     }
     
     // Listen for system theme changes
@@ -34,115 +30,78 @@
     });
   }
 
-  // Theme toggle functionality
+  // Simple theme toggle - just light/dark
   window.toggleTheme = function() {
-    const themes = ['auto', 'light', 'dark'];
-    const currentIndex = themes.indexOf(currentTheme);
-    const nextIndex = (currentIndex + 1) % themes.length;
-    currentTheme = themes[nextIndex];
-    
+    currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
     localStorage.setItem('blog-theme', currentTheme);
-    
-    if (currentTheme === 'auto') {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      applyTheme(prefersDark ? 'dark' : 'light', true);
-    } else {
-      applyTheme(currentTheme, true);
-    }
-    
-    updateThemeIcon(currentTheme);
+    applyTheme(currentTheme, true);
+    updateThemeIcon();
   };
 
-  // Apply theme to document
   function applyTheme(theme, animate = true) {
     if (animate) {
-      document.documentElement.style.transition = 'background-color 0.3s ease, color 0.3s ease';
+      document.documentElement.style.transition = 'background-color 0.2s ease, color 0.2s ease';
     }
     
-    if (theme === 'dark') {
-      document.documentElement.setAttribute('data-theme', 'dark');
-    } else {
-      document.documentElement.setAttribute('data-theme', 'light');
-    }
+    document.documentElement.setAttribute('data-theme', theme);
     
     if (animate) {
       setTimeout(() => {
         document.documentElement.style.transition = '';
-      }, 300);
+      }, 200);
     }
   }
 
-  // Update theme icon
-  function updateThemeIcon(theme) {
+  function updateThemeIcon() {
     const themeIcon = document.getElementById('theme-icon');
     const themeButton = document.getElementById('theme-toggle');
     
     if (!themeIcon || !themeButton) return;
     
-    switch (theme) {
-      case 'auto':
-        themeIcon.textContent = '🌓';
-        themeButton.title = 'Theme: Auto (follows system)';
-        break;
-      case 'light':
-        themeIcon.textContent = '☀️';
-        themeButton.title = 'Theme: Light';
-        break;
-      case 'dark':
-        themeIcon.textContent = '🌙';
-        themeButton.title = 'Theme: Dark';
-        break;
+    if (currentTheme === 'dark') {
+      themeIcon.textContent = '☀';
+      themeButton.title = 'Switch to light mode';
+    } else {
+      themeIcon.textContent = '🌙';
+      themeButton.title = 'Switch to dark mode';
     }
   }
 
+  // Simple language toggle - just EN/ZH
   window.toggleLanguage = function() {
-    const dropdown = document.getElementById('lang-dropdown');
-    if (dropdown) {
-      dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-    }
+    const newLang = currentLang === 'en' ? 'zh' : 'en';
+    setLanguage(newLang, true);
   };
 
-  window.setLanguage = function(lang, reload = true) {
+  window.setLanguage = function(lang, updateUI = true) {
     currentLang = lang;
     localStorage.setItem('blog-language', lang);
     
-    // Update button display
-    const currentLangSpan = document.getElementById('current-lang');
-    if (currentLangSpan) {
-      if (lang === 'en') {
-        currentLangSpan.textContent = '🌐 EN';
-        document.documentElement.lang = 'en';
-      } else {
-        currentLangSpan.textContent = '🌐 中文';
-        document.documentElement.lang = 'zh';
-      }
+    if (updateUI) {
+      updateLanguageDisplay();
+      filterContentByLanguage(lang);
+      updatePageContent(lang);
+      
+      // Dispatch language change event
+      window.dispatchEvent(new CustomEvent('languageChanged', { 
+        detail: { language: lang } 
+      }));
     }
-    
-    // Hide dropdown
-    const dropdown = document.getElementById('lang-dropdown');
-    if (dropdown) {
-      dropdown.style.display = 'none';
-    }
-    
-    // Filter content based on language
-    filterContentByLanguage(lang);
-    
-    // Update page title and description
-    updatePageContent(lang);
-    
-    // Dispatch language change event for search functionality
-    document.dispatchEvent(new CustomEvent('languageChanged', { 
-      detail: { language: lang } 
-    }));
   };
 
+  function updateLanguageDisplay() {
+    const langToggle = document.getElementById('current-lang');
+    if (langToggle) {
+      langToggle.textContent = currentLang.toUpperCase();
+    }
+  }
+
   function filterContentByLanguage(lang) {
-    // Filter posts on homepage - only show posts in selected language
     const posts = document.querySelectorAll('.post-list li');
     let visibleCount = 0;
     
     posts.forEach(post => {
-      const postLang = post.getAttribute('data-lang') || 'zh'; // Default to Chinese for existing posts
+      const postLang = post.getAttribute('data-lang') || 'zh';
       if (postLang === lang) {
         post.style.display = 'block';
         visibleCount++;
@@ -151,12 +110,13 @@
       }
     });
     
-    // Show message if no posts in selected language
+    // Remove existing no-posts message
     const existingMsg = document.getElementById('no-posts-message');
     if (existingMsg) {
       existingMsg.remove();
     }
     
+    // Show message if no posts in selected language
     if (visibleCount === 0) {
       const msg = document.createElement('div');
       msg.id = 'no-posts-message';
@@ -176,11 +136,7 @@
     // Update site title
     const siteTitle = document.querySelector('.site-title');
     if (siteTitle) {
-      if (lang === 'zh') {
-        siteTitle.textContent = '子易赛博の空间';
-      } else {
-        siteTitle.textContent = "Zee's Cyber Space";
-      }
+      siteTitle.textContent = lang === 'zh' ? '子易赛博の空间' : "Zee's Cyber Space";
     }
     
     // Update navigation links
@@ -192,29 +148,11 @@
       }
     });
     
-    // Update search link
-    const searchText = document.querySelector('.search-text');
-    if (searchText) {
-      searchText.textContent = lang === 'zh' ? '搜索' : 'Search';
-    }
-    
     // Update page heading if exists
     const pageHeading = document.querySelector('.page-heading');
     if (pageHeading && window.location.pathname === '/') {
-      // Don't show any page heading on homepage
       pageHeading.style.display = 'none';
     }
   }
-
-  // Close dropdown when clicking outside
-  document.addEventListener('click', function(event) {
-    const switcher = document.querySelector('.language-switcher');
-    if (switcher && !switcher.contains(event.target)) {
-      const dropdown = document.getElementById('lang-dropdown');
-      if (dropdown) {
-        dropdown.style.display = 'none';
-      }
-    }
-  });
 
 })();

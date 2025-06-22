@@ -1,18 +1,15 @@
 source "https://rubygems.org"
 
-# This is the default theme for new Jekyll sites. You may change this to anything you like.
+# This is the default theme for new Jekyll sites.
 gem "minima"
 
-# GitHub Pages with latest security updates
+# GitHub Pages
 gem "github-pages", group: :jekyll_plugins
 
-# If you have any plugins, put them here!
+# GitHub Pages whitelisted plugins only
 group :jekyll_plugins do
-  gem "jekyll-feed", "~> 0.15"
+  gem "jekyll-feed"
   gem 'jekyll-seo-tag'
-  gem 'jekyll-sitemap'
-  gem 'jekyll-redirect-from'
-  gem 'jekyll-gist'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

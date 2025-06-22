@@ -2,12 +2,12 @@
 .search-link {
   display: inline-flex !important;
   align-items: center;
-  gap: 4px;
-  margin-right: $spacing-unit / 2;
+  gap: 3px;
+  font-size: 14px;
   
   .search-icon {
-    width: 14px;
-    height: 14px;
+    width: 12px;
+    height: 12px;
     opacity: 0.7;
     transition: opacity 0.2s ease;
   }
@@ -33,15 +33,16 @@
 .lang-button {
   background: none;
   border: 1px solid var(--border-color, #ddd);
-  padding: 6px 12px;
+  padding: 4px 8px;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 12px;
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
   transition: all 0.2s ease;
   color: var(--text-color, #333);
+  height: 32px;
 }
 
 .lang-button:hover {
@@ -84,16 +85,16 @@
 .theme-toggle {
   background: none;
   border: 1px solid var(--border-color, #ddd);
-  padding: 6px 8px;
+  padding: 4px 6px;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px;
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
 }
 
 .theme-toggle:hover {
@@ -163,13 +164,15 @@
 .site-nav .trigger {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 15px;
+  flex-wrap: nowrap;
+  gap: 10px;
+  white-space: nowrap;
 }
 
 // Ensure header controls are on the right
 .site-nav .trigger .header-controls {
   margin-left: auto;
+  gap: 8px;
 }
 
 // Responsive navigation adjustments

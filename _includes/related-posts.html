@@ -5,9 +5,7 @@ Finds related posts based on tags, categories, and language
 
 {% comment %} Check if related posts are enabled {% endcomment %}
 {% assign related_enabled = site.related_posts.enabled | default: true %}
-{% unless related_enabled %}
-  {% break %}
-{% endunless %}
+{% if related_enabled %}
 
 {% assign current_lang = page.lang | default: "zh" %}
 {% assign related_posts = site.posts | where: "lang", current_lang %}
@@ -145,4 +143,5 @@ Finds related posts based on tags, categories, and language
       </div>
     </section>
   {% endif %}
+{% endif %}
 {% endif %}

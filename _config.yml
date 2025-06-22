@@ -54,7 +54,7 @@ minima:
     youtube_channel: UCnxBt9CHbVIMFySBl0AZ4Tg
     # youtube_channel_name: CloudCannon
     telegram: wanger1984
-    # googleplus: +jekyll
+    # googleplus: jekyll
     # microdotblog: jekyll
     # keybase: jekyll
 
@@ -81,33 +81,10 @@ header_pages:
 # Build settings
 markdown: kramdown
 theme: minima
+
+# Only use plugins that are whitelisted by GitHub Pages
 plugins:
   - jekyll-feed
-  - jekyll-seo-tag
-
-# SEO Settings
-seo:
-  type: Person
-  name: Zee
-  links:
-    - https://twitter.com/ZeeCares
-    - https://github.com/zeecares
-    - https://www.facebook.com/apache.wang.5
-    - https://www.instagram.com/zeewang42
-    - https://t.me/wanger1984
-
-# Social media profiles for structured data
-social:
-  name: Zee
-  links:
-    - https://twitter.com/ZeeCares
-    - https://github.com/zeecares
-    - https://www.facebook.com/apache.wang.5
-    - https://www.instagram.com/zeewang42
-
-# Analytics
-google_analytics: UA-167900064-1
-google_site_verification: # Add your Google Search Console verification code here
 
 # Related posts configuration
 related_posts:
@@ -123,14 +100,12 @@ defaults:
     values:
       layout: post
       author: Zee
-      image: /pic/circle.png # Default image for social sharing
   - scope:
       path: ""
       type: pages
     values:
       layout: page
       author: Zee
-      image: /pic/circle.png # Default image for social sharing
 
 # Locale settings for better SEO
 locale: en_US

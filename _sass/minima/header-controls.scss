@@ -1,3 +1,22 @@
+// Search link in header
+.search-link {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 4px;
+  margin-right: $spacing-unit / 2;
+  
+  .search-icon {
+    width: 14px;
+    height: 14px;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+  }
+  
+  &:hover .search-icon {
+    opacity: 1;
+  }
+}
+
 // Header Controls Styles
 .header-controls {
   display: flex;

@@ -1,0 +1,112 @@
+{% comment %}
+  JSON-LD structured data for blog posts
+{% endcomment %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "{{ page.title | escape }}",
+  "description": "{{ page.excerpt | strip_html | strip_newlines | truncate: 160 | escape }}",
+  "url": "{{ page.url | absolute_url }}",
+  "datePublished": "{{ page.date | date_to_xmlschema }}",
+  {% if page.modified_date %}
+  "dateModified": "{{ page.modified_date | date_to_xmlschema }}",
+  {% else %}
+  "dateModified": "{{ page.date | date_to_xmlschema }}",
+  {% endif %}
+  "author": {
+    "@type": "Person",
+    "name": "{{ page.author | default: site.author.name | escape }}",
+    "email": "{{ site.author.email | escape }}",
+    "sameAs": [
+      "https://twitter.com/ZeeCares",
+      "https://github.com/zeecares",
+      "https://www.facebook.com/apache.wang.5",
+      "https://www.instagram.com/zeewang42"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "{{ site.author.name | escape }}",
+    "email": "{{ site.author.email | escape }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ '/pic/circle.png' | absolute_url }}",
+      "width": 512,
+      "height": 512
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ page.url | absolute_url }}"
+  },
+  {% if page.image %}
+  "image": {
+    "@type": "ImageObject",
+    "url": "{{ page.image | absolute_url }}",
+    "width": 1200,
+    "height": 630
+  },
+  {% else %}
+  "image": {
+    "@type": "ImageObject",
+    "url": "{{ '/pic/circle.png' | absolute_url }}",
+    "width": 512,
+    "height": 512
+  },
+  {% endif %}
+  "inLanguage": "{{ page.lang | default: 'en' }}",
+  {% if page.categories %}
+  "articleSection": [
+    {% for category in page.categories %}
+    "{{ category }}"{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ],
+  {% endif %}
+  {% if page.tags %}
+  "keywords": [
+    {% for tag in page.tags %}
+    "{{ tag }}"{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ],
+  {% endif %}
+  "wordCount": "{{ content | strip_html | number_of_words }}",
+  "timeRequired": "PT{{ content | strip_html | number_of_words | divided_by: 200 | plus: 1 }}M",
+  "copyrightYear": "{{ page.date | date: '%Y' }}",
+  "copyrightHolder": {
+    "@type": "Person",
+    "name": "{{ site.author.name | escape }}"
+  }
+}
+</script>
+
+{% comment %}
+  Additional structured data for translated content
+{% endcomment %}
+{% assign page_slug = page.url | split: "/" | last | split: "." | first %}
+{% if site.data.languages.pairs[page_slug] %}
+  {% assign translation_slug = site.data.languages.pairs[page_slug] %}
+  {% for post in site.posts %}
+    {% assign post_slug = post.url | split: "/" | last | split: "." | first %}
+    {% if post_slug == translation_slug %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "url": "{{ page.url | absolute_url }}",
+  "inLanguage": "{{ page.lang | default: 'en' }}",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "{{ site.title | escape }}",
+    "url": "{{ site.url }}{{ site.baseurl }}"
+  },
+  "translationOfWork": {
+    "@type": "BlogPosting",
+    "url": "{{ post.url | absolute_url }}",
+    "inLanguage": "{{ post.lang | default: 'zh' }}"
+  }
+}
+</script>
+    {% endif %}
+  {% endfor %}
+{% endif %}

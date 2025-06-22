@@ -129,6 +129,11 @@
     
     // Update page title and description
     updatePageContent(lang);
+    
+    // Dispatch language change event for search functionality
+    document.dispatchEvent(new CustomEvent('languageChanged', { 
+      detail: { language: lang } 
+    }));
   };
 
   function filterContentByLanguage(lang) {
@@ -186,6 +191,12 @@
         link.textContent = lang === 'zh' ? '关于' : 'About';
       }
     });
+    
+    // Update search link
+    const searchText = document.querySelector('.search-text');
+    if (searchText) {
+      searchText.textContent = lang === 'zh' ? '搜索' : 'Search';
+    }
     
     // Update page heading if exists
     const pageHeading = document.querySelector('.page-heading');

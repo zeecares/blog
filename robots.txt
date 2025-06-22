@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://zeecares.github.io/sitemap.xml
+
+# Disallow crawling of admin areas and temporary files
+Disallow: /admin/
+Disallow: /_drafts/
+Disallow: /tmp/
+
+# Allow crawling of assets and media
+Allow: /assets/
+Allow: /pic/
+Allow: /favicon/
+
+# Allow specific important pages
+Allow: /about/
+Allow: /
+
+# Crawl delay (optional - adjust based on server capacity)
+Crawl-delay: 1

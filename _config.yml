@@ -84,8 +84,60 @@ theme: minima
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
-# enable google analytics
+  - jekyll-sitemap
+  - jekyll-redirect-from
+  - jekyll-gist
+
+# SEO Settings
+seo:
+  type: Person
+  name: Zee
+  links:
+    - https://twitter.com/ZeeCares
+    - https://github.com/zeecares
+    - https://www.facebook.com/apache.wang.5
+    - https://www.instagram.com/zeewang42
+    - https://t.me/wanger1984
+
+# Social media profiles for structured data
+social:
+  name: Zee
+  links:
+    - https://twitter.com/ZeeCares
+    - https://github.com/zeecares
+    - https://www.facebook.com/apache.wang.5
+    - https://www.instagram.com/zeewang42
+
+# Analytics
 google_analytics: UA-167900064-1
+google_site_verification: # Add your Google Search Console verification code here
+
+# Related posts configuration
+related_posts:
+  enabled: true
+  max_posts: 5
+  fallback_enabled: true
+
+# Default meta descriptions
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      author: Zee
+      image: /pic/circle.png # Default image for social sharing
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: page
+      author: Zee
+      image: /pic/circle.png # Default image for social sharing
+
+# Locale settings for better SEO
+locale: en_US
+timezone: Europe/Dublin
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list

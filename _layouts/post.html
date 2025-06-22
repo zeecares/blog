@@ -1,6 +1,7 @@
 ---
 layout: default
 ---
+{% include post-structured-data.html %}
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
@@ -67,6 +68,12 @@ layout: default
   <div class="post-content e-content" itemprop="articleBody">
     {{ content }}
   </div>
+
+  {%- comment -%} Include internal links for SEO {%- endcomment -%}
+  {%- include internal-links.html -%}
+
+  {%- comment -%} Include social sharing buttons {%- endcomment -%}
+  {%- include social-sharing.html -%}
 
   {%- if site.disqus.shortname -%}
     {%- include disqus_comments.html -%}

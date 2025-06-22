@@ -1,0 +1,28 @@
+{% comment %}
+  Generate optimized meta descriptions for pages and posts
+{% endcomment %}
+
+{% assign page_lang = page.lang | default: site.default_lang | default: "en" %}
+
+{% if page.excerpt %}
+  {% assign meta_description = page.excerpt | strip_html | strip_newlines | truncate: 160 %}
+{% elsif page.description %}
+  {% assign meta_description = page.description | strip_html | strip_newlines | truncate: 160 %}
+{% elsif page.layout == "post" %}
+  {% assign content_preview = content | strip_html | strip_newlines | truncate: 160 %}
+  {% assign meta_description = content_preview %}
+{% elsif page.title %}
+  {% if page_lang == "zh" %}
+    {% assign meta_description = page.title | append: " - " | append: site.description_zh | truncate: 160 %}
+  {% else %}
+    {% assign meta_description = page.title | append: " - " | append: site.description | truncate: 160 %}
+  {% endif %}
+{% else %}
+  {% if page_lang == "zh" %}
+    {% assign meta_description = site.description_zh | truncate: 160 %}
+  {% else %}
+    {% assign meta_description = site.description | truncate: 160 %}
+  {% endif %}
+{% endif %}
+
+<meta name="description" content="{{ meta_description | escape }}">

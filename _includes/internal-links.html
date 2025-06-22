@@ -1,0 +1,115 @@
+{% comment %}
+  Generate internal linking suggestions for better SEO
+  This include helps improve internal linking by suggesting related posts
+{% endcomment %}
+
+{% if page.layout == "post" %}
+<section class="internal-links" aria-label="Related Posts">
+  <h3>{% if page.lang == "zh" %}相关文章{% else %}Related Posts{% endif %}</h3>
+  
+  {% comment %} First, try to find the translation of current post {% endcomment %}
+  {% assign page_slug = page.url | split: "/" | last | split: "." | first %}
+  {% if site.data.languages.pairs[page_slug] %}
+    {% assign translation_slug = site.data.languages.pairs[page_slug] %}
+    {% for post in site.posts %}
+      {% assign post_slug = post.url | split: "/" | last | split: "." | first %}
+      {% if post_slug == translation_slug %}
+        <div class="translation-link">
+          <a href="{{ post.url | relative_url }}" rel="alternate" hreflang="{{ post.lang | default: 'zh' }}">
+            <span class="translation-indicator">{% if post.lang == "zh" %}中文版{% else %}English Version{% endif %}</span>
+            {{ post.title | escape }}
+          </a>
+        </div>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+  
+  {% comment %} Then find other posts in the same language {% endcomment %}
+  {% assign current_lang = page.lang | default: "en" %}
+  {% assign related_posts = site.posts | where: "lang", current_lang | where_exp: "post", "post.url != page.url" | limit: 3 %}
+  
+  {% if related_posts.size > 0 %}
+    <ul class="related-posts-list">
+      {% for post in related_posts %}
+        <li>
+          <a href="{{ post.url | relative_url }}" title="{{ post.title | escape }}">
+            {{ post.title | escape }}
+          </a>
+          <time datetime="{{ post.date | date_to_xmlschema }}">
+            {{ post.date | date: "%b %-d, %Y" }}
+          </time>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</section>
+
+<style>
+.internal-links {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #007acc;
+}
+
+.internal-links h3 {
+  margin-top: 0;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.translation-link {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  background: #e8f4f8;
+  border-radius: 4px;
+}
+
+.translation-link a {
+  text-decoration: none;
+  color: #007acc;
+  font-weight: 500;
+}
+
+.translation-indicator {
+  font-size: 0.9rem;
+  color: #666;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.related-posts-list {
+  list-style: none;
+  padding: 0;
+}
+
+.related-posts-list li {
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #eee;
+}
+
+.related-posts-list li:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.related-posts-list a {
+  text-decoration: none;
+  color: #007acc;
+  font-weight: 500;
+}
+
+.related-posts-list a:hover {
+  text-decoration: underline;
+}
+
+.related-posts-list time {
+  display: block;
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 0.25rem;
+}
+</style>
+{% endif %}

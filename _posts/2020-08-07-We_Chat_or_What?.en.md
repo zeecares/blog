@@ -4,6 +4,8 @@ title: "WeChat or What?"
 date: 2020-8-7
 lang: en
 translated: true
+categories: [technology, social]
+tags: [wechat, technology, social-media, china, digital-freedom]
 ---
 
 I must admit my feelings are multifaceted. On one hand, I've benefited from WeChat - been inspired by articles on official accounts, moved by interactions in Moments (and of course, agonized over how to post high-quality content). I can even see and appreciate WeChat's restraint in certain aspects. However, on the other hand, I know what such a national-level application can be used for. I know its suppression of the open internet and "links" (at the same time, I've witnessed how links can be misused and Baidu's repeated need to clarify that not all web pages in their app belong to them).

@@ -3,6 +3,8 @@ title: "Thoughts on Quality"
 date: 2023-11-02
 lang: en
 layout: post
+categories: [philosophy, technology]
+tags: [quality, qa, software-development, feng-shui, philosophy]
 ---
 
 > "You want to know how to paint a perfect painting? It's easy. Make yourself perfect and then just paint naturally."

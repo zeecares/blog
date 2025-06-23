@@ -49,7 +49,11 @@ layout: default
             {%- assign trans_slug = translation_post.url | split: "/" | last | split: "." | first -%}
             {%- if trans_slug == translation_slug -%}
               <div class="translation-link">
-                {%- assign other_lang = post_lang == "en" ? "zh" : "en" -%}
+                {%- if post_lang == "en" -%}
+                  {%- assign other_lang = "zh" -%}
+                {%- else -%}
+                  {%- assign other_lang = "en" -%}
+                {%- endif -%}
                 <a href="{{ translation_post.url | relative_url }}">
                   {{ site.data.ui[post_lang].view_in_language }} {{ site.lang_names[other_lang] }}
                 </a>

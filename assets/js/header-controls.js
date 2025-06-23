@@ -7,7 +7,11 @@
 
   // Initialize on page load
   document.addEventListener('DOMContentLoaded', function() {
-    setLanguage(currentLang, false);
+    // Always default to English first, then apply user preference
+    setLanguage('en', true);
+    if (currentLang !== 'en') {
+      setLanguage(currentLang, true);
+    }
     initializeTheme();
   });
 
@@ -97,16 +101,18 @@
   }
 
   function filterContentByLanguage(lang) {
+    // Apply language class to body for CSS-based filtering
+    document.body.className = document.body.className.replace(/\blang-\w+\b/g, '');
+    document.body.classList.add(`lang-${lang}`);
+    
+    // Count visible posts for feedback
     const posts = document.querySelectorAll('.post-list li');
     let visibleCount = 0;
     
     posts.forEach(post => {
       const postLang = post.getAttribute('data-lang') || 'zh';
       if (postLang === lang) {
-        post.style.display = 'block';
         visibleCount++;
-      } else {
-        post.style.display = 'none';
       }
     });
     

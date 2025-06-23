@@ -4,7 +4,7 @@
 .header-controls {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   margin-left: auto;
   height: 100%;
 }
@@ -14,12 +14,12 @@
   position: relative;
   
   .search-input {
-    width: 200px;
-    height: 32px;
-    padding: 6px 12px;
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
-    font-size: 14px;
+    width: 160px;
+    height: 28px;
+    padding: 4px 10px;
+    border: 1px solid #e5e7eb;
+    border-radius: 4px;
+    font-size: 13px;
     background: #fff;
     color: #374151;
     transition: all 0.2s ease;
@@ -27,8 +27,8 @@
     &:focus {
       outline: none;
       border-color: #3b82f6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-      width: 240px;
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+      width: 200px;
     }
     
     &::placeholder {
@@ -102,13 +102,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
+  width: 28px;
+  height: 28px;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
   background: #fff;
   color: #374151;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -195,14 +195,34 @@
   }
 }
 
-// Integration with existing navigation
+// Integration with existing navigation - Make it thinner
 .site-nav .trigger {
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
   gap: 16px;
   white-space: nowrap;
-  height: 54px; // Match header height
+  height: 40px; // Thinner header
+}
+
+// Make the entire header thinner
+.site-header {
+  border-bottom: 1px solid #e5e7eb;
+  min-height: 40px;
+  
+  .wrapper {
+    max-width: 100%;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    height: 40px;
+  }
+  
+  .site-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-right: auto;
+  }
 }
 
 // Responsive design
@@ -324,4 +344,30 @@
 .lang-option,
 .search-link {
   display: none !important;
+}
+
+// Default language filtering - start with English only
+.post-list li {
+  display: none; // Hide all posts initially
+}
+
+.post-list li[data-lang="en"] {
+  display: block; // Show English posts by default
+}
+
+// Language filtering classes controlled by JavaScript
+.lang-en .post-list li[data-lang="en"] {
+  display: block;
+}
+
+.lang-en .post-list li[data-lang="zh"] {
+  display: none;
+}
+
+.lang-zh .post-list li[data-lang="zh"] {
+  display: block;
+}
+
+.lang-zh .post-list li[data-lang="en"] {
+  display: none;
 }
